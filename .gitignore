@@ -1,3 +1,4 @@
 # Jetbrains IDE files
 .idea/
 bin/
+build/
