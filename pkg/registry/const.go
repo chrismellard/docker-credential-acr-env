@@ -13,23 +13,12 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-package cmd
+package registry
 
 import (
-	"github.com/chrismellard/docker-credential-acr/pkg/credhelper"
-	"github.com/docker/docker-credential-helpers/credentials"
-	"github.com/spf13/cobra"
+	"context"
+	"time"
 )
 
-// getCmd represents the get command
-var getCmd = &cobra.Command{
-	Use:   "get",
-	Short: "for the server specified via stdin, return the stored credentials via stdout",
-	Run: func(cmd *cobra.Command, args []string) {
-		credentials.Serve(credhelper.NewACRCredentialsHelper())
-	},
-}
-
-func init() {
-	rootCmd.AddCommand(getCmd)
-}
+var defaultTimeOut = time.Duration(30) * time.Second
+var OAuthHTTPContext = context.Background()
