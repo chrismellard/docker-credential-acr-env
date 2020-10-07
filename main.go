@@ -15,7 +15,7 @@ limitations under the License.
 */
 package main
 
-import "github.com/chrismellard/docker-credential-acr/cmd"
+import "github.com/chrismellard/docker-credential-acr-env/cmd"
 
 func main() {
 	cmd.Execute()

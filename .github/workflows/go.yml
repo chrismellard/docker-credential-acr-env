@@ -5,8 +5,9 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
- create:
-   tags: *
+  create:
+    tags:
+      - '*'
 
 jobs:
 
@@ -23,10 +24,6 @@ jobs:
 
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
-
-
-    - name: Build
-      run: go build -v .
 
     - name: Run GoReleaser
       uses: goreleaser/goreleaser-action@v2

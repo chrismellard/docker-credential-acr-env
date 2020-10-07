@@ -1,4 +1,4 @@
-module github.com/chrismellard/docker-credential-acr
+module github.com/chrismellard/docker-credential-acr-env
 
 go 1.14
 

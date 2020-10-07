@@ -20,8 +20,8 @@ import (
 	"fmt"
 
 	"github.com/Azure/go-autorest/autorest/azure/auth"
-	"github.com/chrismellard/docker-credential-acr/pkg/registry"
-	"github.com/chrismellard/docker-credential-acr/pkg/token"
+	"github.com/chrismellard/docker-credential-acr-env/pkg/registry"
+	"github.com/chrismellard/docker-credential-acr-env/pkg/token"
 	"github.com/docker/docker-credential-helpers/credentials"
 )
 

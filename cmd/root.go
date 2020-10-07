@@ -28,7 +28,7 @@ var cfgFile string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "docker-credential-acr",
+	Use:   "docker-credential-acr-env",
 	Short: "Docker Helper program for Azure Container Registry",
 }
 
@@ -44,7 +44,7 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.docker-credential-acr.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.docker-credential-acr-env.yaml)")
 }
 
 // initConfig reads in config file and ENV variables if set.
@@ -60,9 +60,9 @@ func initConfig() {
 			os.Exit(1)
 		}
 
-		// Search config in home directory with name ".docker-credential-acr" (without extension).
+		// Search config in home directory with name ".docker-credential-acr-env" (without extension).
 		viper.AddConfigPath(home)
-		viper.SetConfigName(".docker-credential-acr")
+		viper.SetConfigName(".docker-credential-acr-env")
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match
