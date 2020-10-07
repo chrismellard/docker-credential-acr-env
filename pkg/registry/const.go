@@ -20,5 +20,7 @@ import (
 	"time"
 )
 
+const secureScheme = "https://"
+
 var defaultTimeOut = time.Duration(30) * time.Second
 var OAuthHTTPContext = context.Background()

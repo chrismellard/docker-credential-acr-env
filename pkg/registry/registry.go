@@ -33,19 +33,17 @@ func GetRegistryRefreshTokenFromAADExchange(serverURL string, principalToken *ad
 		return "", fmt.Errorf("error refreshing sp token - %w", err)
 	}
 
+	registryName, err := getRegistryURL(serverURL)
+	if err != nil {
+		return "", fmt.Errorf("failed to parse server URL - %w", err)
+	}
+	refreshTokenClient := containerregistry.NewRefreshTokensClient(registryName.String())
 	authorizer := autorest.NewBearerAuthorizer(principalToken)
-
-	refreshTokenClient := containerregistry.NewRefreshTokensClient(serverURL)
 	refreshTokenClient.Authorizer = authorizer
 	ctx, cancel := context.WithTimeout(OAuthHTTPContext, defaultTimeOut)
 	defer cancel()
 
-	registryName, err := parseRegistryName(serverURL)
-	if err != nil {
-		return "", fmt.Errorf("failed to parse server URL - %w", err)
-	}
-
-	rt, err := refreshTokenClient.GetFromExchange(ctx, "access_token", registryName, tenantID, "", principalToken.Token().AccessToken)
+	rt, err := refreshTokenClient.GetFromExchange(ctx, "access_token", serverURL, tenantID, "", principalToken.Token().AccessToken)
 
 	if err != nil {
 		return "", fmt.Errorf("failed to get refresh token for container registry - %w", err)
@@ -55,11 +53,11 @@ func GetRegistryRefreshTokenFromAADExchange(serverURL string, principalToken *ad
 }
 
 // parseRegistryName parses a serverURL and returns the registry name (i.e. minus transport scheme)
-func parseRegistryName(serverURL string) (string, error) {
-	sURL, err := url.Parse(serverURL)
+func getRegistryURL(serverURL string) (*url.URL, error) {
+	sURL, err := url.Parse(secureScheme + serverURL)
 	if err != nil {
-		return "", fmt.Errorf("failed to parse server URL - %w", err)
+		return &url.URL{}, fmt.Errorf("failed to parse server URL - %w", err)
 	}
 
-	return sURL.Host, nil
+	return sURL, nil
 }
