@@ -34,15 +34,15 @@ func NewACRCredentialsHelper() credentials.Helper {
 	return &ACRCredHelper{}
 }
 
-func (A ACRCredHelper) Add(_ *credentials.Credentials) error {
+func (a ACRCredHelper) Add(_ *credentials.Credentials) error {
 	return errors.New("list is unimplemented")
 }
 
-func (A ACRCredHelper) Delete(_ string) error {
+func (a ACRCredHelper) Delete(_ string) error {
 	return errors.New("list is unimplemented")
 }
 
-func (A ACRCredHelper) Get(serverURL string) (string, string, error) {
+func (a ACRCredHelper) Get(serverURL string) (string, string, error) {
 	spToken, settings, err := token.GetServicePrincipalTokenFromEnvironment()
 	if err != nil {
 		return "", "", fmt.Errorf("failed to acquire sp token %w", err)
@@ -54,6 +54,6 @@ func (A ACRCredHelper) Get(serverURL string) (string, string, error) {
 	return tokenUsername, refreshToken, nil
 }
 
-func (A ACRCredHelper) List() (map[string]string, error) {
+func (a ACRCredHelper) List() (map[string]string, error) {
 	return nil, errors.New("list is unimplemented")
 }

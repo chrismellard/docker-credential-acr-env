@@ -26,7 +26,7 @@ import (
 )
 
 // GetRegistryRefreshTokenFromAADExchange retrieves an OAuth2 refresh token for the registry specified by serverURL
-func GetRegistryRefreshTokenFromAADExchange(serverURL string, principalToken *adal.ServicePrincipalToken, tenantId string) (string, error) {
+func GetRegistryRefreshTokenFromAADExchange(serverURL string, principalToken *adal.ServicePrincipalToken, tenantID string) (string, error) {
 
 	err := principalToken.EnsureFresh()
 	if err != nil {
@@ -45,7 +45,7 @@ func GetRegistryRefreshTokenFromAADExchange(serverURL string, principalToken *ad
 		return "", fmt.Errorf("failed to parse server URL - %w", err)
 	}
 
-	rt, err := refreshTokenClient.GetFromExchange(ctx, "access_token", registryName, tenantId, "", principalToken.Token().AccessToken)
+	rt, err := refreshTokenClient.GetFromExchange(ctx, "access_token", registryName, tenantID, "", principalToken.Token().AccessToken)
 
 	if err != nil {
 		return "", fmt.Errorf("failed to get refresh token for container registry - %w", err)
