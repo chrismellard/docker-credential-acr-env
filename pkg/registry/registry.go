@@ -29,7 +29,6 @@ import (
 func GetRegistryRefreshTokenFromAADExchange(serverURL string, principalToken *adal.ServicePrincipalToken, tenantID string) (string, error) {
 
 	err := principalToken.EnsureFresh()
-	fmt.Printf("access_token=%s", principalToken.Token().AccessToken)
 	if err != nil {
 		return "", fmt.Errorf("error refreshing sp token - %w", err)
 	}
