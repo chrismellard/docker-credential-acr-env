@@ -27,7 +27,7 @@ import (
 	"github.com/docker/docker-credential-helpers/credentials"
 )
 
-var acrPattern = regexp.MustCompile(`(^[a-zA-Z0-9][a-zA-Z0-9-_]*)\.azurecr.io$`)
+var acrRE = regexp.MustCompile(`.*\.azurecr\.io|.*\.azurecr\.cn|.*\.azurecr\.de|.*\.azurecr\.us`)
 
 const (
 	mcrHostname   = "mcr.microsoft.com"
@@ -57,7 +57,7 @@ func isACRRegistry(input string) bool {
 	if serverURL.Hostname() == mcrHostname {
 		return true
 	}
-	matches := acrPattern.FindStringSubmatch(serverURL.Hostname())
+	matches := acrRE.FindStringSubmatch(serverURL.Hostname())
 	if len(matches) == 0 {
 		return false
 	}
