@@ -29,6 +29,10 @@ import (
 func GetRegistryRefreshTokenFromAADExchange(serverURL string, principalToken *adal.ServicePrincipalToken, tenantID string) (string, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeOut)
 	defer cancel()
+
+	// If refreshing fails, don't try again, just fail.
+	principalToken.MaxMSIRefreshAttempts = 1
+
 	if err := principalToken.EnsureFreshWithContext(ctx); err != nil {
 		return "", fmt.Errorf("error refreshing sp token - %w", err)
 	}
