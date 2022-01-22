@@ -19,6 +19,7 @@ import (
 	"context"
 	"fmt"
 	"net/url"
+	"strings"
 
 	"github.com/Azure/azure-sdk-for-go/services/preview/containerregistry/runtime/2019-08-15-preview/containerregistry"
 	"github.com/Azure/go-autorest/autorest"
@@ -55,7 +56,13 @@ func GetRegistryRefreshTokenFromAADExchange(serverURL string, principalToken *ad
 
 // parseRegistryName parses a serverURL and returns the registry name (i.e. minus transport scheme)
 func getRegistryURL(serverURL string) (*url.URL, error) {
-	sURL, err := url.Parse(secureScheme + serverURL)
+	// if the serverURL begins with 'https://', don't add it when parsing the url
+	scheme := secureScheme
+	if strings.HasPrefix(serverURL, "https://") {
+		scheme = ""
+	}
+
+	sURL, err := url.Parse(scheme + serverURL)
 	if err != nil {
 		return &url.URL{}, fmt.Errorf("failed to parse server URL - %w", err)
 	}
