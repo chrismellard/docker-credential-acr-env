@@ -37,11 +37,12 @@ func GetRegistryRefreshTokenFromAADExchange(serverURL string, principalToken *ad
 		return "", fmt.Errorf("error refreshing sp token - %w", err)
 	}
 
-	registryName, err := getRegistryURL(serverURL)
+	registryURL, err := getRegistryURL(serverURL)
 	if err != nil {
 		return "", err
 	}
-	refreshTokenClient := containerregistry.NewRefreshTokensClient(registryName.String())
+
+	refreshTokenClient := containerregistry.NewRefreshTokensClient(registryURL.String())
 	authorizer := autorest.NewBearerAuthorizer(principalToken)
 	refreshTokenClient.Authorizer = authorizer
 	rt, err := refreshTokenClient.GetFromExchange(ctx, "access_token", serverURL, tenantID, "", principalToken.Token().AccessToken)
