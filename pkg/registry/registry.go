@@ -67,5 +67,9 @@ func getRegistryURL(serverURL string) (*url.URL, error) {
 		return &url.URL{}, fmt.Errorf("failed to parse server URL - %w", err)
 	}
 
-	return sURL, nil
+	// strip everything but the Scheme and Host from the URL
+	return &url.URL{
+		Scheme: sURL.Scheme,
+		Host:   sURL.Host,
+	}, nil
 }
