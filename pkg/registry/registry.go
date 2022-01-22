@@ -39,7 +39,7 @@ func GetRegistryRefreshTokenFromAADExchange(serverURL string, principalToken *ad
 
 	registryName, err := getRegistryURL(serverURL)
 	if err != nil {
-		return "", fmt.Errorf("failed to parse server URL - %w", err)
+		return "", err
 	}
 	refreshTokenClient := containerregistry.NewRefreshTokensClient(registryName.String())
 	authorizer := autorest.NewBearerAuthorizer(principalToken)
