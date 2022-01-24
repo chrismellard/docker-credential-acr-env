@@ -29,6 +29,7 @@ func TestIsACRHelper(t *testing.T) {
 		{"myregistry.azurecr.de", true},
 		{"myregistry.azurecr.us", true},
 		{"mcr.microsoft.com", true},
+		{"myregistry.azurecr.io/includes/repo", true},
 		{"myregistry.azurecr.me", false}, // not a known tld
 		{"notacr.xcr.example", false},
 		{"127.0.0.1:12345", false},
