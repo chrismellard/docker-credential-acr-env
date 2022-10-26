@@ -15,7 +15,17 @@ AZURE_CLIENT_ID=<clientID>
 AZURE_CLIENT_SECRET=<clientSecret>
 AZURE_TENANT_ID=<tenantId>
 ```
- 
+
+If the details needed for the client credential grant are not set it will try to 
+find a [federated OIDC JWT](https://learn.microsoft.com/en-us/graph/api/resources/federatedidentitycredentials-overview?view=graph-rest-1.0) 
+in the enviroment. To use this set the following values in the enviroment.
+
+```
+AZURE_CLIENT_ID=<clientID>
+AZURE_FEDERATED_TOKEN=<federatedJWT>
+AZURE_TENANT_ID=<tenantId>
+```
+
 If the above are not set then authentication falls back to managed service identities and the MSI endpoint is
 attempted to be contacted which will work in various Azure contexts such as App Service and Azure Kubernetes Service
 where the MSI endpoint will authenticate the MSI context the service is running under.
