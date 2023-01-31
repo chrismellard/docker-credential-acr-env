@@ -9,7 +9,7 @@ require (
 	github.com/Azure/go-autorest/autorest/azure/auth v0.5.11
 	github.com/docker/docker-credential-helpers v0.6.3
 	github.com/mitchellh/go-homedir v1.1.0
-	github.com/spf13/cobra v1.0.0
+	github.com/spf13/cobra v1.2.0
 	github.com/spf13/viper v1.8.1
 )
 
